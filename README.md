@@ -1,6 +1,6 @@
 # DONAT.PANDA
 بازی پاندا و دونات با زبان پایتون
-نسخه اولیه از کد بازی
+نسخه نهایی از کد بازی
 import turtle
 import random
 import winsound
@@ -26,11 +26,11 @@ s.register_shape('panda2.gif')
 panda.shape('panda2.gif')
 panda.up()
 # دونات
-ball=turtle.Turtle()
+donat=turtle.Turtle()
 s.register_shape("dn1.gif")
-ball.shape("dn1.gif")
-ball.up()
-ball.goto(random.randint(-260,260),random.randint(-260,260))
+donat.shape("dn1.gif")
+donat.up()
+donat.goto(random.randint(-260,260),random.randint(-260,260))
 # امتیاز
 wr=turtle.Turtle()
 wr.up()
@@ -69,6 +69,12 @@ while abs(panda.xcor() - oo_x) < 50 and abs(panda.ycor() - oo_y) < 50:
     oo_x, oo_y = random.randint(-75, 75), random.randint(-75, 75)
 oo.goto(oo_x, oo_y)
 
+def show_winner_screen():
+    s.clear()  # پاک کردن صفحه فعلی
+    s.bgpic('bord.gif')  # نمایش عکس برنده شدن
+    s.exitonclick()
+
+
 #در حال حرکت
 while True:
     panda.fd(1)
@@ -77,7 +83,13 @@ while True:
         Score=Score-5
         wr.clear()
         wr.write('امتیاز = ' + str(Score),font=('b koodak',12,'bold'))
-        winsound.Beep(1000, 300)
+        winsound.PlaySound('divar.wav', winsound.SND_FILENAME)
+
+
+
+
+
+
     if panda.distance(oo) < 25:
         oo.goto(random.randint(-260, 260), random.randint(-260, 260))
         oo.goto(random.randint(-260, 260), random.randint(-260, 260))
@@ -85,16 +97,24 @@ while True:
         Score = Score -5
         wr.clear()
         wr.write('امتیاز = ' + str(Score), font=('b koodak', 12, 'bold'))
+        winsound.PlaySound('mane.wav', winsound.SND_FILENAME)
 
-    if panda.distance(ball)<15:
-        ball.goto(random.randint(-260,260),random.randint(-260,260))
+    if panda.distance(donat)<15:
+        donat.goto(random.randint(-260,260),random.randint(-260,260))
+        oo.goto(random.randint(-260, 260), random.randint(-260, 260))
         Score = Score +10
         wr.clear()
         wr.write('امتیاز = ' + str(Score),font=('b koodak',12,'bold'))
-    if Score>=40:
-        wr.goto(+50,-50)
-        wr.write('آفرین شما برنده شدید :)' , font=('b koodak',18,'bold'))
+        winsound.PlaySound('emtiaz.wav', winsound.SND_FILENAME)
+
+    if Score>=20:
+        winsound.PlaySound('bord.wav', winsound.SND_FILENAME)
+        show_winner_screen()
+        winsound.PlaySound('bord.wav', winsound.SND_FILENAME)
+
+
     if Score<=-10:
+        winsound.PlaySound('bakht.wav', winsound.SND_FILENAME)
         wr.goto(-75, 0)
         wr.write('،، متاسفم شما باختید :) ،، ', font=('b koodak', 18, 'bold'))
 
